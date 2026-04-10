@@ -1,5 +1,5 @@
 import React from 'react'
-import { AppBar, Button, IconButton, Toolbar, Typography } from '@mui/material'
+import { AppBar, Box, Button, IconButton, Toolbar, Typography } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu';
 
 function Body() {
@@ -22,6 +22,9 @@ function Body() {
                     <Button color="inherit">Login</Button>
                 </Toolbar>
             </AppBar>
+            <Box>
+                
+            </Box>
         </>
     )
 }
