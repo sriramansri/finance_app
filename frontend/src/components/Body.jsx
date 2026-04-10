@@ -22,8 +22,11 @@ function Body() {
                     <Button color="inherit">Login</Button>
                 </Toolbar>
             </AppBar>
-            <Box>
-                
+
+            <Box
+            
+            sx={{width:'99vw', bgcolor:'#070319', height:'50vh'}}>
+
             </Box>
         </>
     )

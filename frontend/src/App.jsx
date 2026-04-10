@@ -6,7 +6,8 @@ import Body from './components/Body'
 function App() {
   return (
     <>
-    <Login/>
+    {/* <Login/> */}
+    <Body/>
     </>
   )
 }
