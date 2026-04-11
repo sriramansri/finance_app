@@ -5,5 +5,5 @@ const router = express.Router();
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
 
-router.post("/login",login);
+router.post("/api/login",login);
 export default router;

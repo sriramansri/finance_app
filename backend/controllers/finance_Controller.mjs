@@ -12,7 +12,7 @@ export const login = (req, res) => {
     console.log("Database result:", result);
 
     if (result.length > 0) {
-      return;
+      return res.json({result:"login successfully"});
     } else {
       return res
         .status(401)
