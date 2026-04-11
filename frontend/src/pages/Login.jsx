@@ -16,10 +16,10 @@ function Login() {
         console.log(formData)
         axios.post('/login', formData)
             .then(response => {
-                console.log('Login successful:', response.data);
+                alert('Login successful:', response.data.Status);
             })
             .catch(error => {
-                console.error('Login failed:', error);
+                alert('Login failed:', error);
             });
     }
 

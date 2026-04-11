@@ -8,7 +8,9 @@ const pool = mysql.createConnection({
     user: process.env.DB_USER,      
     password: process.env.DB_PASS,
     database: process.env.DB_NAME
-}).connect((err) => {   
+});
+
+pool.connect((err) => {   
     if (err) {
         console.error('Error connecting to the database:', err);
     } else {
