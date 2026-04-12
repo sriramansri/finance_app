@@ -29,17 +29,12 @@ function Login() {
         console.log(formData)
         axios.post('/login', formData)
             .then(response => {
-<<<<<<< HEAD
                 setSuccess(true)
-            })
-            .catch(error => {
-                setError(true)
-=======
                 alert('Login successful:', response.data.Status);
             })
             .catch(error => {
+                setError(true)
                 alert('Login failed:', error);
->>>>>>> 807adaec566be50b02cd27770d3c7a92bfa93a33
             });
     }
 
