@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 807adaec566be50b02cd27770d3c7a92bfa93a33
 import db from "../dbConfig.mjs";
 
 export const login = (req, res) => {

@@ -8,8 +8,13 @@ import { Typography } from '@mui/material'
 function App() {
   return (
     <>
+<<<<<<< HEAD
     {/* <Login/> */}
     <Forgot/>
+=======
+    <Login/>
+    <Body/>
+>>>>>>> 807adaec566be50b02cd27770d3c7a92bfa93a33
     </>
   )
 }
