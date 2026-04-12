@@ -15,7 +15,6 @@ function Login() {
     });
 
     const handleClose = (event, reason) => {
-        console.log(reason)
         if (reason === 'clickaway') {
             return;
         }
@@ -30,11 +29,9 @@ function Login() {
         axios.post('/login', formData)
             .then(response => {
                 setSuccess(true)
-                alert('Login successful:', response.data.Status);
             })
             .catch(error => {
                 setError(true)
-                alert('Login failed:', error);
             });
     }
 
