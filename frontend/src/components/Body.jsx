@@ -24,8 +24,11 @@ function Body() {
             </AppBar>
 
             <Box
-            
-            sx={{width:'99vw', bgcolor:'#070319', height:'50vh'}}>
+                sx={{
+                    width: '99vw',
+                    bgcolor: '#070319',
+                    height: '70vh'
+                }}>
 
             </Box>
         </>
