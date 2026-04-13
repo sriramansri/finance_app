@@ -93,7 +93,6 @@ function Login() {
                 <TextField
                     label='Password'
                     size="small"
-                    margin="dense"
                     name='password'
                     onChange={handleValue}
                     type={showPassword ? 'text' : 'password'} // Change type dynamically
