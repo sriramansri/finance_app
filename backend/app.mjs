@@ -5,16 +5,13 @@ import cors from "cors";
 const port=5000;
 const app=express();
 
-// medielwar
+// middleware
 app.use(cors());
 express.json();
 
 app.use(router);
-
+app.use(admin);
 
 app.listen(port,()=>{
     console.log("server is running....")
 })
-
-
-https:loaclhost:5000
