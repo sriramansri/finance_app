@@ -1,11 +1,14 @@
 import express from "express"
-import {admin} from "../controllers/finance_Controller.mjs";
+import {admins,addemp,editstaff} from "../controllers/adminController.mjs";
 
 
-const router = express.Router();
-router.use(express.json());
-router.use(express.urlencoded({ extended: true }));
+const admin = express.Router();
+admin.use(express.json());
+admin.use(express.urlencoded({ extended: true }));
 
-// router.post("/api/admin",admin);
+admin.get("/api/admin",admins);
+admin.post("/api/addemp",addemp);
+admin.post("/api/editstaff",editstaff)
+
 
 export default admin
