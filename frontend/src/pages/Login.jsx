@@ -1,8 +1,9 @@
 import { Box, Button, Card, InputAdornment, TextField, Typography, IconButton, Link, Snackbar, Alert } from '@mui/material'
 import VisibilitySharpIcon from '@mui/icons-material/VisibilitySharp';
-import axios from '../axiosConfig';
+import axios from '../services/axiosConfig';
 import VisibilityOffSharpIcon from '@mui/icons-material/VisibilityOffSharp';
 import React, { useState } from 'react'
+import { Navigate, useNavigate } from 'react-router-dom';
 
 
 function Login() {
@@ -13,6 +14,9 @@ function Login() {
         email: '',
         password: ''
     });
+    const navigate = useNavigate();
+
+    // let pattern=new RegExp("^/d")
 
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
@@ -25,9 +29,14 @@ function Login() {
     // data pasing to backend
 
     const LoginData = () => {
-        console.log(formData)
         axios.post('/login', formData)
             .then(response => {
+                localStorage.setItem('token', response.data.token);
+                if (response.data.role === 'developer') {
+                    navigate('/Admin/page')
+                } else {
+                    console.log('Failed');
+                }   
                 setSuccess(true)
             })
             .catch(error => {
@@ -82,7 +91,7 @@ function Login() {
                 </Typography>
 
                 <TextField
-                    label='Email / Username'
+                    label='Email '
                     size="small"
                     margin="dense"
                     name='email'
@@ -120,6 +129,8 @@ function Login() {
                 <Button variant='contained' onClick={LoginData} fullWidth sx={{ width: '80%', mt: 3, borderRadius: 2 }}>
                     Log in
                 </Button>
+                <p>srikarsan@gmail.com</p>
+                <p>Srkasa@2005</p>
             </Card>
         </Box>
     )
