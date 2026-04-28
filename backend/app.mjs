@@ -10,7 +10,7 @@ const app=express();
 app.use(cors());
 express.json();
 
-// app.use(router);
+
 app.use(router)
 
 app.listen(port,()=>{
