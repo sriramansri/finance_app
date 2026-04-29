@@ -3,10 +3,13 @@ import VisibilitySharpIcon from '@mui/icons-material/VisibilitySharp';
 import axios from '../axiosConfig';
 import VisibilityOffSharpIcon from '@mui/icons-material/VisibilityOffSharp';
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
     const [showPassword, setShowPassword] = useState(false);
-    
+
+    const navigate = useNavigate();
+
     const [formData, setformData] = useState({
         email: '',
         password: ''
@@ -78,7 +81,12 @@ function Login() {
                 />
 
                 <Box sx={{ width: '80%', display: 'flex', justifyContent: 'flex-start', mt: 1 }}>
-                    <Link href="#" underline="none" sx={{ fontSize: '0.8rem', fontFamily: 'Arial' }}>
+                    <Link 
+                        component="button"
+                        onClick={() => navigate('/forgot-password')}
+                        underline="none" 
+                        sx={{ fontSize: '0.8rem' }}
+                    >
                         Forgot Password?
                     </Link>
                 </Box>

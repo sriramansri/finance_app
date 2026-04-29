@@ -1,15 +1,16 @@
-import React from 'react'
-import './App.css'
-import Login from './pages/Login'
-import Body from './components/Body'
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Login from './pages/Login';
+import ForgotPassword from './components/ForgotPassword';
 
 function App() {
   return (
-    <>
-    <Login/>
-    <Body/>
-    </>
-  )
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
 export default App
