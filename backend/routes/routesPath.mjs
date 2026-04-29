@@ -1,6 +1,8 @@
 import express from "express";
 import { login, sendOTP, resetPassword } from "../controllers/finance_Controller.mjs";
 
+const app=express();
+
 const router = express.Router();
 router.use(express.json());
 

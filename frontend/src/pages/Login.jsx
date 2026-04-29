@@ -1,6 +1,6 @@
-import { Box, Button, Card, InputAdornment, TextField, Typography, IconButton, Link } from '@mui/material'
+import { Box, Button, Card, InputAdornment, TextField, Typography, IconButton, Link, Snackbar, Alert } from '@mui/material'
 import VisibilitySharpIcon from '@mui/icons-material/VisibilitySharp';
-import axios from '../axiosConfig';
+import axios from '../services/axiosConfig';
 import VisibilityOffSharpIcon from '@mui/icons-material/VisibilityOffSharp';
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
@@ -14,15 +14,33 @@ function Login() {
         email: '',
         password: ''
     });
+    const navigate = useNavigate();
+
+    // let pattern=new RegExp("^/d")
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setSuccess(false);
+        setError(false);
+    };
+
+    // data pasing to backend
 
     const LoginData = () => {
-        console.log(formData)
         axios.post('/login', formData)
             .then(response => {
-                alert('Login successful:', response.data.Status);
+                localStorage.setItem('token', response.data.token);
+                if (response.data.role === 'developer') {
+                    navigate('/Admin/page')
+                } else {
+                    console.log('Failed');
+                }   
+                setSuccess(true)
             })
             .catch(error => {
-                alert('Login failed:', error);
+                setError(true)
             });
     }
 
@@ -35,6 +53,29 @@ function Login() {
     }
     return (
         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+
+            <Snackbar
+                open={success}
+                autoHideDuration={5000}
+                onClose={handleClose}
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            >
+                <Alert severity='success' sx={{ width: '100%' }} onClose={handleClose}>
+                    Login successfully!
+                </Alert>
+            </Snackbar>
+
+            <Snackbar
+                open={Error}
+                autoHideDuration={5000}
+                onClose={handleClose}
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            >
+                <Alert severity='error' sx={{ width: '100%' }} onClose={handleClose}>
+                    Login Failed!
+                </Alert>
+            </Snackbar>
+
             <Card sx={{
                 width: 450,
                 bgcolor: '#e5e7e8',
@@ -45,12 +86,12 @@ function Login() {
                 borderRadius: 5,
                 boxShadow: 3
             }}>
-                <Typography variant="h5" sx={{ padding: 2, fontWeight: 'bold' }}>
+                <Typography variant="h5" sx={{ padding: 2, fontWeight: 'bold', fontFamily: "Verdana, Geneva, Tahoma, sans-serif" }}>
                     Login
                 </Typography>
 
                 <TextField
-                    label='Email / Username'
+                    label='Email '
                     size="small"
                     margin="dense"
                     name='email'
@@ -61,7 +102,6 @@ function Login() {
                 <TextField
                     label='Password'
                     size="small"
-                    margin="dense"
                     name='password'
                     onChange={handleValue}
                     type={showPassword ? 'text' : 'password'} // Change type dynamically
@@ -94,6 +134,8 @@ function Login() {
                 <Button variant='contained' onClick={LoginData} fullWidth sx={{ width: '80%', mt: 3, borderRadius: 2 }}>
                     Log in
                 </Button>
+                <p>srikarsan@gmail.com</p>
+                <p>Srkasa@2005</p>
             </Card>
         </Box>
     )
