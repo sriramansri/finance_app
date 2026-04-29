@@ -11,7 +11,9 @@ app.use(cors());
 express.json();
 
 
-app.use(router)
+// app.use(router)
+app.use(admin)
+
 
 app.listen(port,()=>{
     console.log("server is running....")
