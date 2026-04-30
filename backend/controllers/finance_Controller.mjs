@@ -25,6 +25,7 @@ export const login = async (req, res) => {
       "Sriraman@2005",
       { expiresIn: "24h" }
     );
+    console.log(token);
     res.json({
       status: "Success",
       token: token,
@@ -35,4 +36,3 @@ export const login = async (req, res) => {
     return res.status(500).json({ status: "Error", message: error.message });
   }
 };
-

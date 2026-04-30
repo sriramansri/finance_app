@@ -1,11 +1,10 @@
 import express from "express"
-import {creatstaffe} from "../controllers/adminController.mjs";
-
+import { insertStaff,updateStaff} from "../controllers/adminController.mjs";
+import { verifyToken } from "../Middleware/adminmiddleware.mjs"
 
 const admin = express.Router();
-admin.use(express.json());
-admin.use(express.urlencoded({ extended: true }));
 
-admin.post("/api/admin",creatstaffe);
+admin.post("/api/insert-Staff",verifyToken,insertStaff);
+admin.put("/api/update-Staff/:id",verifyToken,updateStaff);
 
 export default admin
