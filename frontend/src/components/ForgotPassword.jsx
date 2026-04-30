@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Box, Button, Card, TextField, Typography } from '@mui/material';
-import axios from '../axiosConfig';
+import axios from '../services/axiosConfig';
 import { useNavigate } from 'react-router-dom';
 
 function ForgotPassword() {
-    const [step, setStep] = useState(1); // 1: Email, 2: OTP & New Password
+    const [step, setStep] = useState(1);
     const [data, setData] = useState({ email: '', otp: '', newPassword: '' });
     const navigate = useNavigate();
 

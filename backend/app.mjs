@@ -8,10 +8,10 @@ const app=express();
 
 // middleware
 app.use(cors());
-express.json();
+app.use(express.json());
 
 
-// app.use(router)
+app.use(router)
 app.use(admin)
 
 
