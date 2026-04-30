@@ -3,8 +3,7 @@ import VisibilitySharpIcon from '@mui/icons-material/VisibilitySharp';
 import axios from '../services/axiosConfig';
 import VisibilityOffSharpIcon from '@mui/icons-material/VisibilityOffSharp';
 import React, { useState } from 'react'
-import { Navigate, useNavigate } from 'react-router-dom';
-
+import { useNavigate } from 'react-router-dom';
 
 function Login() {
     const [showPassword, setShowPassword] = useState(false);
@@ -28,21 +27,33 @@ function Login() {
 
     // data pasing to backend
 
-    const LoginData = () => {
-        axios.post('/login', formData)
-            .then(response => {
-                localStorage.setItem('token', response.data.token);
-                if (response.data.role === 'developer') {
-                    navigate('/Admin/page')
-                } else {
-                    console.log('Failed');
-                }   
-                setSuccess(true)
-            })
-            .catch(error => {
-                setError(true)
-            });
+    const LoginData = async () => {
+    setError(false); // Reset error state before trying
+    
+    try {
+        // 1. Use the full path that your backend is listening on
+        const response = await axios.post('/login', formData);
+        
+        console.log("Response:", response.data);
+
+        // 2. Store the token
+        localStorage.setItem('token', response.data.token);
+
+        // 3. Navigate based on role (Match your backend's case-sensitive 'Success')
+        if (response.data.status === "Success") {
+            if (response.data.role === 'admin') {
+                navigate('/Admin/page');
+            } else {
+                // If you have a user page, navigate there
+                navigate('/user/dashboard'); 
+            }
+            setSuccess(true);
+        }
+    } catch (error) {
+        console.error("Login Error:", error.response?.data || error.message);
+        setError(true);
     }
+};
 
     const handleClickShowPassword = () => setShowPassword((show) => !show);
     const handleValue = (e) => {
@@ -121,7 +132,12 @@ function Login() {
                 />
 
                 <Box sx={{ width: '80%', display: 'flex', justifyContent: 'flex-start', mt: 1 }}>
-                    <Link href="#" underline="none" sx={{ fontSize: '0.8rem', fontFamily: 'Arial' }}>
+                    <Link 
+                        component="button"
+                        onClick={() => navigate('/forgot-password')}
+                        underline="none" 
+                        sx={{ fontSize: '0.8rem' }}
+                    >
                         Forgot Password?
                     </Link>
                 </Box>

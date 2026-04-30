@@ -1,10 +1,10 @@
 import express from "express";
-import {login} from "../controllers/finance_Controller.mjs";
+import { login, sendOTP, resetPassword } from "../controllers/finance_Controller.mjs";
 
 const router = express.Router();
 router.use(express.json());
-router.use(express.urlencoded({ extended: true }));
 
-router.post("/api/login",login);
-
+router.post("/api/login",login );
+router.post("/api/send-otp", sendOTP);
+router.post("/api/reset-password", resetPassword);
 export default router;
