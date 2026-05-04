@@ -13,9 +13,9 @@ export const login = async (req, res) => {
     const { email, password } = req.body;
     console.log("Attempting login for:", email);
 
-    const [users] = await pool.execute("SELECT * FROM users WHERE email = ?", [
-      email,
-    ]);
+    const [users] = await pool.execute("SELECT * FROM users WHERE email = ?",
+       [email]
+      );
 
     if (users.length === 0) {
       return res
@@ -35,10 +35,10 @@ export const login = async (req, res) => {
 
     const token = jwt.sign(
       { id: user.id, role: user.role },
-      process.env.jwt_SECRET,
+      "Sriraman@2005",
       { expiresIn: "24h" }
     );
-
+    console.log(token);
     res.json({status: "Success",token: token,role: user.role,});
   } catch (err) {
     console.error(err);

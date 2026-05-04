@@ -76,3 +76,31 @@ export const updateStaff = async (req, res) => {
     }
 
 }
+export const deleteStaff = async (req, res) => {
+    try {
+        if (!req.user) {
+            return res.status(401).json({ Message: 'Unauthorized: No user information found' });
+        }
+
+        if (req.user.role !== 'admin') {
+            return res.status(403).json({ Message: 'Only admin can use this profile' });
+        }
+        const { id } = req.params;
+        
+
+        const [deleteEmp] = await db.execute(
+            "delete from admin WHERE id = ?",[id]
+        );
+        
+        if(deleteEmp.affectedRows === 0){
+            return res.status(404).json({message: 'staff not found in database' })
+        }
+
+        res.status(200).json({ message: 'staffe successfully deleted ' })
+
+    } catch (error) {
+        console.error('update error:', error);
+        res.status(500).json({ error: 'Server error during update' });
+    }
+
+}
