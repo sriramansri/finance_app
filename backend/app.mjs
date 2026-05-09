@@ -1,7 +1,8 @@
 import express from "express";
-import router from "./routes/routesPath.mjs";
+import login from "./routes/loginRouter.mjs";
 import admin from "./routes/admin.mjs";
 import cors from "cors";
+
 
 const port=5000;
 const app=express();
@@ -11,7 +12,7 @@ app.use(cors());
 app.use(express.json());
 
 
-app.use(router)
+app.use(login)
 app.use(admin)
 
 

@@ -3,28 +3,55 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
+dotenv.config();
 
 let otpStore = {};
 
-// 1. Login Function
 export const login = async (req, res) => {
-  
   try {
     const { email, password } = req.body;
 
-    const [users] = await pool.execute("SELECT * FROM users WHERE email = ?",
-       [email]
-      );
+    if (!email || !password) {
+      return res
+        .status(400)
+        .json({ status: "Error", message: "Email and password are required" });
+    }
 
-    if (users.length === 0) {
+    let user = null;
+    let isEmployee = false;
+
+    // 1. Users Table Check (Assuming it has email column)
+    const [userResult] = await pool.execute("SELECT * FROM users WHERE email = ?", [email]);
+    
+    if (userResult.length > 0) {
+      user = userResult[0];
+    } else {
+      // 2. Employe Table Check (Exact table name from your schema is 'employe')
+      const [empResult] = await pool.execute("SELECT * FROM employe WHERE email = ?", [email]);
+      if (empResult.length > 0) {
+        user = empResult[0];
+        isEmployee = true; 
+      }
+    }
+
+    // Rendu table-layum email illana invalid credentials
+    if (!user) {
       return res
         .status(401)
         .json({ status: "Error", message: "Invalid credentials" });
     }
 
-    const user = users[0];
+    // 3. Password Verification
+    // Users table-la 'password_hash', Employe table-la 'emp_password' (from screenshot)
+    const dbPassword = isEmployee ? user.emp_password : user.password_hash;
 
-    const isValidPassword = await bcrypt.compare(password, user.password_hash);
+    if (!dbPassword) {
+       return res
+        .status(401)
+        .json({ status: "Error", message: "Invalid credentials" });
+    }
+
+    const isValidPassword = await bcrypt.compare(password, dbPassword);
 
     if (!isValidPassword) {
       return res
@@ -32,16 +59,25 @@ export const login = async (req, res) => {
         .json({ status: "Error", message: "Invalid credentials" });
     }
 
+    // 4. Token & Role generation
+    // Rendu table-layume primary key column name 'id' thaan! (from screenshot)
+    const userId = user.id; 
+    const userRole = isEmployee ? user.emp_roll : user.role; 
+
     const token = jwt.sign(
-      { id: user.id, role: user.role },
-      "Sriraman@2005",
+      { id: userId, role: userRole },
+      process.env.JWT_SECRET,
       { expiresIn: "24h" }
     );
-    console.log(token);
-    res.json({status: "Success",token: token,role: user.role,});
+
+    return res.json({ 
+      status: "Success", 
+      token: token, 
+      role: userRole 
+    });
 
   } catch (err) {
-    console.error(err);
+    console.error("Login Error: ", err);
     return res
       .status(500)
       .json({ status: "Error", message: "Internal Server Error" });

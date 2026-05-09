@@ -5,10 +5,8 @@ export const verifyToken = (req, res, next) => {
 
     if (!token) return res.status(401).json({ message: "No token provided" });
 
-    jwt.verify(token, "Sriraman@2005", (err, decoded) => {
+    jwt.verify(token,process.env.JWT_SECRET, (err, decoded) => {
         if (err) return res.status(403).json({ message: "Invalid token" });
-        
-        // ithu token-la irukura datava req.user-la stor painuthu
         req.user = decoded; 
         next();
     });
