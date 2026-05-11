@@ -7,14 +7,20 @@ insert into users values (0,'admin123','admin349@gmail.com','Africa123','admin')
 select * from users;
 select * from users where id=1;
 
--- admin
+-- employe
 
 use finance_company;
 
-create table admin(
-id int auto_increment primary key ,
-sttafename varchar(50),
-sttafRoll varchar(100),
-sallery varchar(10));
+create table employe(
+emp_id int auto_increment primary key ,
+emp_name varchar(50),
+emp_role varchar(100),
+email varchar(100),
+emp_password varchar(100),
+emp_sallery varchar(10));
 
-select * from admin 
+select * from employe 
+
+--lornForm
+
+create table  lornForm  (id int auto_increment primary key, loan_Amount varchar(100), interest_Rate varchar(100),Loan_Duration varchar(100),EMI_type varchar(100),start_Date varchar(100),End_Date varchar(100));

@@ -17,6 +17,9 @@ export const login = async (req, res) => {
         .json({ status: "Error", message: "Email and password are required" });
     }
 
+   
+    
+
     let user = null;
     let isEmployee = false;
 
@@ -33,6 +36,8 @@ export const login = async (req, res) => {
         isEmployee = true; 
       }
     }
+
+    //  user = userResult[0];
 
     // Rendu table-layum email illana invalid credentials
     if (!user) {
@@ -61,11 +66,11 @@ export const login = async (req, res) => {
 
     // 4. Token & Role generation
     // Rendu table-layume primary key column name 'id' thaan! (from screenshot)
-    const userId = user.id; 
+    // const userId = user.id; 
     const userRole = isEmployee ? user.emp_roll : user.role; 
 
     const token = jwt.sign(
-      { id: userId, role: userRole },
+      { id: user.id, role: userRole },
       process.env.JWT_SECRET,
       { expiresIn: "24h" }
     );
@@ -73,7 +78,7 @@ export const login = async (req, res) => {
     return res.json({ 
       status: "Success", 
       token: token, 
-      role: userRole 
+      role: userRole
     });
 
   } catch (err) {
@@ -83,6 +88,10 @@ export const login = async (req, res) => {
       .json({ status: "Error", message: "Internal Server Error" });
   }
 };
+
+
+
+
 
 // 2. Forgot Password - Send OTP
 export const sendOTP = async (req, res) => {

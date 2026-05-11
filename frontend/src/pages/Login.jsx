@@ -51,7 +51,7 @@ function Login() {
                         navigate('/Admin/page');
                     } else {
                         // If you have a user page, navigate there
-                        navigate('/user/dashboard');
+                        navigate('/Admin/page');
                     }
                     setSuccess(true);
                 }
