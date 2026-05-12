@@ -10,7 +10,7 @@ import PercentIcon from '@mui/icons-material/Percent';
 
 const Admin = () => {
   const menuItems = [
-    { title: "Staff Create", icon: <PeopleIcon fontSize="large" />, color: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'},
+    { title: "Staff Create", icon: <PeopleIcon fontSize="large" />, color: 'linear-gradient(135deg, #667eea 0%, #c5c21f 100%)'},
     { title: "Loan Approval", icon: <AssignmentTurnedInIcon fontSize="large" />, color: 'linear-gradient(135deg, #2af598 0%, #009efd 100%)' },
    
   ];
@@ -24,61 +24,62 @@ const Admin = () => {
       pt: 4 
     }}>
       {/* maxWidth={false} is the key to full width */}
-      <Container maxWidth={false} sx={{ px: { xs: 2, md: 5 } }}>
+      <Container  sx={{ px: {xs: 2, md: 5 , height:'100vh' ,backgroundColor:'#ffffff' ,} }}>
         
         <Box sx={{ mb: 4 }}>
-          <Typography variant="h4" sx={{ fontWeight: 800, color: '#1a203e' }}>
+          <Typography variant="h4" sx={{p:5, fontWeight: 800, color: '#000000' ,alignContent:'center'}}>
             Admin Dashboard
           </Typography>
         </Box>
 
-        <Grid container spacing={3}>
+        <Grid container spacing={5}>
           {menuItems.map((item, index) => (
             // Desktop-la items nalla spread aaga md={3} correct-ah irukum
-            <Grid item xs={12} sm={6} md={6} key={index}>
+            <Grid item xs={12} sm={6} md={4} key={index} sx={{}}>
               <Card 
                 sx={{
                   borderRadius: 4,
                   background: item.color,
-                  color: 'white',
-                  height: '50%',
-                  width :'100%',
+                  // color: 'white',
+                  height: '80%',
+                  width :'28vw',
+
                   transition: '0.3s',
                   '&:hover': { transform: 'translateY(-5px)' }
                 }}
               >
-                <CardActionArea sx={{ p: 4, height: '100%' }}>
-                  <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                <CardActionArea sx={{ p: 5, height: '100%' }}>
+                  {/* <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                     {item.icon}
                     {item.count > 0 && <Badge badgeContent={item.count} color="error" />}
-                  </Box>
-                  <Typography variant="h5" sx={{ mt: 3, fontWeight: 700 }}>
-                    {item.title}
+                  </Box> */}
+                  <Typography variant="h5" sx={{ mt: 0, fontWeight: 700,display: 'flex',gap:2, alignContent:'center',justifyContent:'center'}}>
+                    {item.icon} {item.title}
                   </Typography>
                 </CardActionArea>
               </Card>
             </Grid>
           ))}
 
-          {/* This section will now stretch across the full screen width
           <Grid item xs={12}>
             <Paper 
               elevation={0}
               sx={{ 
-                p: 5, 
+                p: 2, 
                 borderRadius: 4, 
                 border: '1px solid #e0e0e0',
-                minHeight: '60vh', // Takes more vertical space on full page
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center'
+                minHeight: '60vh', 
+                width:'55vw',
+               
               }}
             >
-              <Typography variant="h6" color="textSecondary">
-                 Main Dashboard Content Area (Full Width)
+              <Typography variant="h6" color="#5467">
+                Repo
+                <hr />
               </Typography>
             </Paper>
-          </Grid> */}
+          </Grid>
+          
         </Grid>
       </Container>
     </Box>

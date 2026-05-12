@@ -7,7 +7,10 @@ import Forgot from './pages/Forgot'
 import Admin from './pages/Admin'
 import MenuIcon from '@mui/icons-material/Menu';
 import { BrowserRouter, Route, Router, Routes } from 'react-router-dom'
-import { AppBar, IconButton, Toolbar, Typography,Box, Button } from '@mui/material'
+import { AppBar, IconButton, Toolbar, Typography,Box, Button,Drawer,List,Divider,ListItem,ListItemButton,ListItemIcon,ListItemText } from '@mui/material'
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import MailIcon from '@mui/icons-material/Mail';
+
 
 
 function App() {
@@ -16,9 +19,10 @@ function App() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar sx={{backgroundColor:'black'}}>
-          <IconButton sx={{color:'white'}}>
+          <IconButton sx={{color:'white', m:2}}>
               <MenuIcon/>
-          </IconButton>
+              
+          </IconButton >
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Finance Company
           </Typography>
